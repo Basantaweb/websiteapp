@@ -1,0 +1,254 @@
+:root{
+--main-color:#a1f3dc;
+}
+
+.main-color{
+color:#a1f3dc;
+}
+.main-bg{
+background-color:var(--main-color);
+}
+.main-border{
+border:1px solid#dcdcdc;
+}
+.main-padding{
+padding:10px;
+}
+.main-margin{
+margin:10px;
+}
+.main-font{
+font-family:'Arial',sans-serif;
+}
+.main-text{
+font-size:16px;
+line-height:1.5;
+}
+.main-logo{
+background-size:cover;
+background-position:center;
+margin: 0px;
+height: 100%;
+width: 100%;
+}
+
+/* Base layout */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #212529;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.app-drawer {
+  background-color: #a1f3dc;
+  color: #141313;
+  padding: 1rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  width: 260px;
+  position: relative;
+  z-index: 1000;
+}
+
+.app-drawer.closed {
+  transform: translateX(-100%);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.app-drawer.open {
+  transform: translateX(0);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.drawer-header {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #495057;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.drawer-close {
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Menu links */
+.drawer-menu {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+}
+
+.drawer-link,
+.drawer-sublink {
+  display: block;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+  color: #101213;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.drawer-link:hover,
+.drawer-sublink:hover {
+  background-color: #0f0f0f;
+  color: #fff;
+}
+
+.drawer-link.active,
+.drawer-sublink.active {
+  background-color: #324053;
+  color: #fff;
+  font-weight: 600;
+}
+
+.drawer-submenu {
+  padding-left: 1rem;
+}
+
+/* Main content */
+.app-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When drawer closed on mobile, no margin */
+.app-layout.drawer-closed .app-main {
+  margin-left: 0;
+}
+
+/* Top navbar */
+.app-navbar {
+  background-color: #a1f3dc;
+  color: #fff;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.device-type {
+  display: flex;
+  align-items: center;
+  color: rgb(117, 56, 56);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Toggle button */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0 0.5rem 0 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Page content */
+.content-container {
+  padding: 1rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.page-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Responsive tweaks */
+@media (max-width: 639px) {
+  .app-drawer {
+    width: 260px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+}
+
+/* Horizontal list group */
+.list-group-horizontal-custom {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.list-group-item-custom {
+  background-color: #343a40;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.list-group-item-custom a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.list-group-item-custom:hover {
+  background-color: #495057;
+}
+
+/* Sub menu (can appear stacked under main item or dropdown-style) */
+.sub-list-group-horizontal {
+  margin-top: 0.25rem;
+  padding-left: 1rem;
+  list-style: none;
+}
+
+.sub-list-group-item-custom {
+  background-color: #6c757d;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.sub-list-group-item-custom a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sub-list-group-item-custom:hover {
+  background-color: #5a6268;
+}
