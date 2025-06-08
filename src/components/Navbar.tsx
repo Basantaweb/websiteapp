@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 import type { MenuItem } from "../services/MenuService";
 import { getMenuItems } from "../services/MenuService";
+import DrawerLayout from "./DrawerLayout";
 import "../main.css";
+import Drawer from "./Drawer";
+// import { House, Gear, BoxArrowRight } from "react-bootstrap-icons";
 
 const Navbar: React.FC = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const location = useLocation();
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
@@ -18,10 +19,10 @@ const Navbar: React.FC = () => {
         setDrawerOpen(false); // Close drawer by default on mobile
       } else if (window.innerWidth < 1024) {
         setDeviceType("tablet");
-        setDrawerOpen(true);
+        setDrawerOpen(false);
       } else {
         setDeviceType("desktop");
-        setDrawerOpen(true);
+        setDrawerOpen(false);
       }
     };
     handleResize();
@@ -34,68 +35,21 @@ const Navbar: React.FC = () => {
     setMenuItems(items);
   }, []);
 
-  const toggleDrawer = () => setDrawerOpen(!drawerOpen);
-
-  const isActive = (path: string) => location.pathname === path;
+  
 
   return (
+    <>
     <div className={`app-layout ${drawerOpen ? "drawer-open" : "drawer-closed"}`}>
-      <aside className={`app-drawer ${drawerOpen ? "open" : "closed"}`}>
-        <div className="drawer-header">
-            <div className="navbar-title"><img className="main-logo" src="https://digiwebcam.in/webaccess/design/img/logo1.png" alt="{deviceType}" /></div>
-          {deviceType === "mobile" && (
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-dark drawer-close"
-              onClick={() => setDrawerOpen(false)}
-            >
-              ✕
-            </button>
-          )}
-        </div>
-        <nav className="drawer-menu">
-          {menuItems.map((item) => (
-            <div key={item.path}>
-              <Link
-                to={item.path}
-                className={`drawer-link ${isActive(item.path) ? "active" : ""}`}
-                onClick={() => deviceType === "mobile" && setDrawerOpen(false)}
-              >
-                {item.label}
-              </Link>
-              {item.subMenu && (
-                <div className="drawer-submenu">
-                  {item.subMenu.map((sub) => (
-                    <Link
-                      key={sub.path}
-                      to={sub.path}
-                      className={`drawer-sublink ${isActive(sub.path) ? "active" : ""}`}
-                      onClick={() => deviceType === "mobile" && setDrawerOpen(false)}
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
-      </aside>
 
       <main className="app-main">
         <div className="app-navbar d-flex justify-content-between align-items-center">
-          {deviceType === "mobile" && (
-            <button
-              className="btn btn-link text-white toggle-btn"
-              onClick={toggleDrawer}
-              aria-label="Toggle menu"
-            >
-              {/* Custom SVG icon */}
-              <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="test-dark" className="bi bi-x-diamond-fill" viewBox="0 0 16 16">
-                    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L4.047 3.339 8 7.293l3.954-3.954L9.049.435zm3.61 3.611L8.708 8l3.954 3.954 2.904-2.905c.58-.58.58-1.519 0-2.098l-2.904-2.905zm-.706 8.614L8 8.708l-3.954 3.954 2.905 2.904c.58.58 1.519.58 2.098 0l2.905-2.904zm-8.614-.706L7.292 8 3.339 4.046.435 6.951c-.58.58-.58 1.519 0 2.098z"/>
-                    </svg></span>
-            </button>
-          )}
+          <button className="btn btn-link text-white toggle-btn zindex-tooltip" onClick={() => setDrawerOpen(true)} >
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="test-dark" className="bi bi-x-diamond-fill" viewBox="0 0 16 16">
+                  <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L4.047 3.339 8 7.293l3.954-3.954L9.049.435zm3.61 3.611L8.708 8l3.954 3.954 2.904-2.905c.58-.58.58-1.519 0-2.098l-2.904-2.905zm-.706 8.614L8 8.708l-3.954 3.954 2.905 2.904c.58.58 1.519.58 2.098 0l2.905-2.904zm-8.614-.706L7.292 8 3.339 4.046.435 6.951c-.58.58-.58 1.519 0 2.098z"/>
+                </svg>
+              </span>
+          </button>
           <span className="h5 text-dark">Welcome to Digi Web Cam</span>
           <span className="device-type">: {deviceType === "mobile" && (
             <span className="badge bg-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-phone-fill" viewBox="0 0 16 16">
@@ -113,7 +67,8 @@ const Navbar: React.FC = () => {
           )}</span>
         </div>
 
-        <div className="content-container">
+        <div className="container">
+        { <DrawerLayout items={menuItems} />}
           <Routes>
             {menuItems.map((item) => (
               <Route
@@ -145,9 +100,16 @@ const Navbar: React.FC = () => {
                 : []
             )}
           </Routes>
+            <Drawer
+              drawerOpen={drawerOpen}
+              setDrawerOpen={setDrawerOpen}
+              deviceType={deviceType}
+              menuItems={menuItems}
+            />
         </div>
       </main>
     </div>
+    </>
   );
 };
 

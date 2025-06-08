@@ -18,6 +18,7 @@ const App: React.FC = () => {
   );
 
   return (
+    <>
     <Router>
       <Navbar />
       <Routes>
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         ))}
       </Routes>
     </Router>
+    </>
   );
 };
 
