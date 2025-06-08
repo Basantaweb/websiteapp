@@ -2,6 +2,10 @@
 --main-color:#a1f3dc;
 }
 
+.menu-item {
+  position: relative;
+}
+
 .main-color{
 color:#a1f3dc;
 }
@@ -118,7 +122,6 @@ width: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 260px;
   transition: margin-left 0.3s ease;
 }
 
@@ -236,4 +239,147 @@ width: 100%;
 
 .sub-list-group-item-custom:hover {
   background-color: #5a6268;
+}
+
+.app-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  z-index: 1055;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.app-drawer.open {
+  transform: translateX(0);
+}
+
+.app-drawer.closed {
+  transform: translateX(-100%);
+}
+
+.drawer-link.active,
+.drawer-sublink.active {
+  color: #0d6efd;
+}
+
+
+/* Responsive adjustments */
+/* Wrapper to enable smooth horizontal scroll on all devices */
+.horizontal-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll for iOS */
+  scrollbar-width: thin; /* Firefox */
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 3px;
+}
+
+/* Scrollable flex row */
+.horizontal-scroll-menu {
+  display: flex;
+  gap: 16px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  min-width: max-content;
+}
+
+/* Each menu item */
+.menu-item {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+/* Link style */
+.menu-link {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 14px;
+  background: #e9ecef;
+  border-radius: 6px;
+  display: inline-block;
+  transition: background 0.3s ease;
+  white-space: nowrap;
+}
+
+.menu-link:hover {
+  background: #ced4da;
+}
+
+/* Submenu base */
+.submenu {
+  display: none;
+  position: static;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 8px 0;
+  z-index: 100;
+}
+
+/* Submenu links */
+.submenu-link {
+  display: block;
+  padding: 8px 14px;
+  color: #212529;
+  text-decoration: none;
+}
+
+.submenu-link:hover {
+  background-color: #f1f3f5;
+}
+
+/* Click to open on mobile */
+.submenu-open {
+  display: block;
+}
+
+/* Hover open on desktop */
+@media (hover: hover) and (min-width: 768px) {
+  .menu-item:hover .submenu {
+    display: block;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .horizontal-scroll-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    gap: 14px;
+    padding: 10px;
+    background: #f8f9fa;
+    white-space: nowrap;
+    min-width: 100%;         /* optional */
+    max-width: 100vw;         /* optional */
+    scrollbar-width: none;   /* Firefox */
+  }
+  
+  .horizontal-scroll-menu::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari, Edge */
+  }
+  
+  .menu-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  .submenu-link {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
 }
